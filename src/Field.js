@@ -1,3 +1,5 @@
+import "./Field.css";
+
 export default function Field() {
 	return (
 		<>

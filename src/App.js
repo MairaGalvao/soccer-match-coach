@@ -1,8 +1,27 @@
 import { useEffect, useState } from "react";
 import csvFile from "./u20advancedstats.csv";
 import Papa from "papaparse";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 import "antd/dist/antd.css";
+import ChartDisplay from "./ChartDisplay";
+
+let data = {
+	options: {
+		chart: {
+			id: "basic-bar",
+		},
+		xaxis: {
+			categories: [2000, 2010, 2020, 2030, 2040, 2050, 2060, 2070],
+		},
+	},
+	series: [
+		{
+			name: "series-1",
+			data: [10, 52, 53, 4, 55, 65, 86, 74, 12],
+		},
+	],
+};
+
 function App() {
 	const [titles, setTitles] = useState();
 	const [rows, setRows] = useState();
@@ -75,6 +94,7 @@ function App() {
 	return (
 		<>
 			<Table columns={titles} dataSource={rows} />
+			<ChartDisplay series={data.series} options={data.options} />
 		</>
 	);
 }
