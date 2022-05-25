@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
+import * as ANTD from "antd";
 
 function ChartDisplay({ options, series }) {
 	return (
-		<div className="app">
-			<div className="row">
-				<div className="mixed-chart">
+		<ANTD.Layout className="app">
+			<ANTD.Layout className="row">
+				<ANTD.Layout className="mixed-chart">
 					<Chart options={options} series={series} type="bar" width="500" />
-				</div>
-			</div>
-		</div>
+				</ANTD.Layout>
+			</ANTD.Layout>
+		</ANTD.Layout>
 	);
 }
 

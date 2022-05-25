@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 import csvFile from "./u20advancedstats.csv";
 import Papa from "papaparse";
-import { Table, Tag } from "antd";
 import "antd/dist/antd.css";
 import ChartDisplay from "./ChartDisplay";
+import Field from "./Field";
+import * as ANTD from "antd";
 
 function App() {
 	const [titles, setTitles] = useState();
 	const [rows, setRows] = useState(); // THE OBJECT WITH ALL KEYS AND VALUES
-	const [playerName, setPlayerName] = useState();
+	const [playerName, setPlayerName] = useState([]);
 	const [freeKicks, setFreeKicks] = useState();
+	const [displayField, setDisplayField] = useState(false);
+
+	const [displayGraph, setDisplayGraph] = useState(true);
+
+	const [displayData, setDisplayData] = useState(true);
 
 	// console.log(rows, "MY ROWS");
 	// console.log(titles, "MY TITLES");
@@ -50,17 +56,25 @@ function App() {
 				onFilter: (value, record) => {
 					//value is the name of the playwers
 					// console.log(value);
+					console.log(value, "here is one "); //so, it is consoling both picked, but not setting up in the state
+					console.log(typeof value);
+					var playwersNameArray = [];
 
-					setPlayerName(value);
+					//todo fix this code to be able to see both strings in one array
+					playwersNameArray.push(value);
+					console.log(playwersNameArray);
+					console.log(typeof playwersNameArray);
+
+					setPlayerName(playwersNameArray);
 					// console.log(value, "my value");
 					// console.log(record.FK, "my record");
+					//todo add all the names picked in the filter in the graph (now it is only able to show one)
+					//todo fix - number of free kick cant display as it is nan
 					let FreeKicksNumber = parseInt(record.FK);
 					let myNumber = parseFloat(FreeKicksNumber);
-					console.log(myNumber); //NAM
-					console.log(typeof myNumber, "my freekick type");
-					// console.log(freeKicks);
+					// console.log(myNumber); //NAM
+					// console.log(typeof myNumber, "my freekick type");
 					setFreeKicks(myNumber);
-
 					return record[title] === value;
 				},
 			};
@@ -87,13 +101,26 @@ function App() {
 	// console.log(freeKicks);
 	return (
 		<>
-			<Table columns={titles} dataSource={rows} />
+			<ANTD.Button
+				shape="round"
+				size="large"
+				type="primary"
+				onClick={() => {
+					setDisplayField(true);
+				}}
+			>
+				An image of the soccer field can be found here
+			</ANTD.Button>
+
+			<ANTD.Table columns={titles} dataSource={rows} />
 
 			<ChartDisplay
 				series={data.series}
 				options={data.options}
 				// playerName={data.playerName}
 			/>
+
+			{displayField && <Field />}
 		</>
 	);
 }

@@ -1,43 +1,21 @@
 import "./Field.css";
+// import { Button, Layout } from "antd";
+import * as ANTD from "antd";
 
 export default function Field() {
 	return (
 		<>
-			<section class="pitch">
-				<div class="field left">
-					<div class="penalty-area"></div>
-				</div>
-				<div class="field right">
-					<div class="penalty-area"></div>
-				</div>
-				<div class="center-circle"></div>
-				<div class="home-team">
-					<div class="player one"></div>
-					<div class="player two"></div>
-					<div class="player three"></div>
-					<div class="player four"></div>
-					<div class="player five"></div>
-					<div class="player six"></div>
-					<div class="player seven"></div>
-					<div class="player eight"></div>
-					<div class="player nine"></div>
-					<div class="player ten"></div>
-					<div class="player eleven"></div>
-				</div>
-				<div class="visitor-team">
-					<div class="player one"></div>
-					<div class="player two"></div>
-					<div class="player three"></div>
-					<div class="player four"></div>
-					<div class="player five"></div>
-					<div class="player six"></div>
-					<div class="player seven"></div>
-					<div class="player eight"></div>
-					<div class="player nine"></div>
-					<div class="player ten"></div>
-					<div class="player eleven"></div>
-				</div>
-			</section>
+			<ANTD.Layout class="pitch">
+				<ANTD.Layout class="field left">
+					<ANTD.Layout class="penalty-area"></ANTD.Layout>
+				</ANTD.Layout>
+				<ANTD.Layout class="field right">
+					<ANTD.Layout class="penalty-area"></ANTD.Layout>
+				</ANTD.Layout>
+				<ANTD.Layout class="center-circle"></ANTD.Layout>
+				<ANTD.Layout class="home-team"></ANTD.Layout>
+				<ANTD.Layout class="visitor-team"></ANTD.Layout>
+			</ANTD.Layout>
 		</>
 	);
 }
