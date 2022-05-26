@@ -56,16 +56,16 @@ function App() {
 				onFilter: (value, record) => {
 					//value is the name of the playwers
 					// console.log(value);
-					console.log(value, "here is one "); //so, it is consoling both picked, but not setting up in the state
+					console.log([value], "here is one "); //so, it is consoling both picked, but not setting up in the state
 					console.log(typeof value);
 					var playwersNameArray = [];
 
-					//todo fix this code to be able to see both strings in one array
+					// //todo fix this code to be able to see both strings in one array
 					playwersNameArray.push(value);
-					console.log(playwersNameArray);
-					console.log(typeof playwersNameArray);
+					console.log(playwersNameArray, "MY ARRAY");
+					// console.log(typeof playwersNameArray);
 
-					setPlayerName(playwersNameArray);
+					setPlayerName(value);
 					// console.log(value, "my value");
 					// console.log(record.FK, "my record");
 					//todo add all the names picked in the filter in the graph (now it is only able to show one)
@@ -121,6 +121,8 @@ function App() {
 			/>
 
 			{displayField && <Field />}
+
+			{/* {displayField && <Field />} */}
 		</>
 	);
 }
