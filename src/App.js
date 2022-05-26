@@ -10,17 +10,10 @@ function App() {
 	const [titles, setTitles] = useState();
 	const [rows, setRows] = useState(); // THE OBJECT WITH ALL KEYS AND VALUES
 	const [playerName, setPlayerName] = useState([]);
+
 	const [freeKicks, setFreeKicks] = useState();
+
 	const [displayField, setDisplayField] = useState(false);
-
-	const [displayGraph, setDisplayGraph] = useState(true);
-
-	const [displayData, setDisplayData] = useState(true);
-
-	// console.log(rows, "MY ROWS");
-	// console.log(titles, "MY TITLES");
-
-	// console.log(rows[titles], "MY TITLES.athelete");
 
 	useEffect(() => {
 		Papa.parse(csvFile, {
@@ -54,32 +47,51 @@ function App() {
 				}),
 
 				onFilter: (value, record) => {
+					// console.log(record[title]);
+					// console.log(value);
+
 					//value is the name of the playwers
 					// console.log(value);
-					console.log([value], "here is one "); //so, it is consoling both picked, but not setting up in the state
-					console.log(typeof value);
-					var playwersNameArray = [];
+					// console.log([value], "here is one "); //so, it is consoling both picked, but not setting up in the state
+					// console.log(typeof value);
+					// var playwersNameArray = [];
 
 					// //todo fix this code to be able to see both strings in one array
-					playwersNameArray.push(value);
-					console.log(playwersNameArray, "MY ARRAY");
+					// playwersNameArray.push(value);
+					// console.log(playwersNameArray, "MY ARRAY");
 					// console.log(typeof playwersNameArray);
 
-					setPlayerName(value);
+					// setPlayerName(value);
 					// console.log(value, "my value");
 					// console.log(record.FK, "my record");
 					//todo add all the names picked in the filter in the graph (now it is only able to show one)
 					//todo fix - number of free kick cant display as it is nan
-					let FreeKicksNumber = parseInt(record.FK);
-					let myNumber = parseFloat(FreeKicksNumber);
-					// console.log(myNumber); //NAM
+					// let FreeKicksNumber = parseInt(record.FK);
+					// let myNumber = parseFloat(FreeKicksNumber);
+					// // console.log(myNumber); //NAM
 					// console.log(typeof myNumber, "my freekick type");
-					setFreeKicks(myNumber);
+					let firstPick = titles[0].filters[0].text;
+					let secondPick = titles[0].filters[1].text;
+
+					var playwersNameArray = [];
+
+					// // //todo fix this code to be able to see both strings in one array
+					playwersNameArray.push(firstPick, secondPick);
+					console.log(playwersNameArray);
+					setPlayerName(playwersNameArray);
+					// setFreeKicks(myNumber);
 					return record[title] === value;
 				},
 			};
 		});
+		// var playwersNameArray = [];
+
+		// // //todo fix this code to be able to see both strings in one array
+		// playwersNameArray.push(value);
+
 		setTitles(titles);
+		// console.log(titles[0].filters[0].text);
+		// console.log(titles[0].filters[1].text);
 	}, [rows]);
 
 	let data = {
@@ -88,13 +100,13 @@ function App() {
 				id: "basic-bar",
 			},
 			xaxis: {
-				categories: [playerName],
+				categories: [[playerName[0]], [playerName[1]]],
 			},
 		},
 		series: [
 			{
 				name: "series-1",
-				data: [freeKicks],
+				data: [2, 4],
 			},
 		],
 	};
