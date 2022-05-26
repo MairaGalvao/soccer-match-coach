@@ -4,6 +4,8 @@ import "./Field.css";
 import * as ANTD from "antd";
 import { useState, useEffect } from "react";
 
+import { Typography } from "antd";
+const { Title } = Typography;
 export default function Field() {
 	const [players, setPlayers] = useState({
 		player1: "Golly",
@@ -31,6 +33,7 @@ export default function Field() {
 				<ANTD.Layout class="center-circle"></ANTD.Layout>
 
 				<ANTD.Layout class="home-team">
+					<Title level={2}>Brazil</Title>
 					<ANTD.Layout class="player one">{players.player1}</ANTD.Layout>
 					<ANTD.Layout class="player two">{players.player2}</ANTD.Layout>
 					<ANTD.Layout class="player three">{players.player3}</ANTD.Layout>
@@ -45,6 +48,7 @@ export default function Field() {
 				</ANTD.Layout>
 
 				<ANTD.Layout class="visitor-team">
+					<Title level={2}>Israel</Title>
 					<ANTD.Layout class="player one">{players.player1}</ANTD.Layout>
 					<ANTD.Layout class="player two">{players.player2}</ANTD.Layout>
 					<ANTD.Layout class="player three">{players.player3}</ANTD.Layout>
