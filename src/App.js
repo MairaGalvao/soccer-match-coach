@@ -10,9 +10,7 @@ function App() {
 	const [titles, setTitles] = useState();
 	const [rows, setRows] = useState(); // THE OBJECT WITH ALL KEYS AND VALUES
 	const [playerName, setPlayerName] = useState([]);
-
 	const [freeKicks, setFreeKicks] = useState();
-
 	const [displayField, setDisplayField] = useState(false);
 
 	useEffect(() => {
@@ -21,7 +19,6 @@ function App() {
 			header: true,
 			complete: function (input) {
 				let records = input.data;
-
 				setRows(records);
 			},
 		});
@@ -31,10 +28,6 @@ function App() {
 		if (!rows) {
 			return;
 		}
-
-		// let value = Object.values(rows[0]);
-		// setPlayerName(value[0]);
-
 		let titles = Object.keys(rows[0]).map((title, index) => {
 			return {
 				title: title,
@@ -47,70 +40,39 @@ function App() {
 				}),
 
 				onFilter: (value, record) => {
-					// console.log(record[title]);
-					// console.log(value);
-
-					//value is the name of the playwers
-					// console.log(value);
-					// console.log([value], "here is one "); //so, it is consoling both picked, but not setting up in the state
-					// console.log(typeof value);
-					// var playwersNameArray = [];
-
-					// //todo fix this code to be able to see both strings in one array
-					// playwersNameArray.push(value);
-					// console.log(playwersNameArray, "MY ARRAY");
-					// console.log(typeof playwersNameArray);
-
-					// setPlayerName(value);
-					// console.log(value, "my value");
-					// console.log(record.FK, "my record");
-					//todo add all the names picked in the filter in the graph (now it is only able to show one)
-					//todo fix - number of free kick cant display as it is nan
-					// let FreeKicksNumber = parseInt(record.FK);
-					// let myNumber = parseFloat(FreeKicksNumber);
-					// // console.log(myNumber); //NAM
-					// console.log(typeof myNumber, "my freekick type");
-					let firstPick = titles[0].filters[0].text;
-					let secondPick = titles[0].filters[1].text;
-
-					var playwersNameArray = [];
-
-					// // //todo fix this code to be able to see both strings in one array
-					playwersNameArray.push(firstPick, secondPick);
-					console.log(playwersNameArray);
-					setPlayerName(playwersNameArray);
-					// setFreeKicks(myNumber);
 					return record[title] === value;
 				},
 			};
 		});
-		// var playwersNameArray = [];
-
-		// // //todo fix this code to be able to see both strings in one array
-		// playwersNameArray.push(value);
 
 		setTitles(titles);
-		// console.log(titles[0].filters[0].text);
-		// console.log(titles[0].filters[1].text);
+		let namesArray = rows.map((record) => {
+			return record.Athlete;
+		});
+		let fkArray = rows.map((record) => {
+			return record.FK;
+		});
+		setPlayerName(namesArray);
+		setFreeKicks(fkArray);
 	}, [rows]);
 
 	let data = {
 		options: {
 			chart: {
-				id: "basic-bar",
+				id: "players-name",
 			},
 			xaxis: {
-				categories: [[playerName[0]], [playerName[1]]],
+				categories: playerName,
 			},
 		},
 		series: [
 			{
-				name: "series-1",
-				data: [2, 4],
+				name: "Free Kicks",
+				data: freeKicks,
 			},
+			//todo add more relevant statistics for the graph
 		],
 	};
-	// console.log(freeKicks);
 	return (
 		<>
 			<ANTD.Button
@@ -126,15 +88,9 @@ function App() {
 
 			<ANTD.Table columns={titles} dataSource={rows} />
 
-			<ChartDisplay
-				series={data.series}
-				options={data.options}
-				// playerName={data.playerName}
-			/>
+			<ChartDisplay series={data.series} options={data.options} />
 
 			{displayField && <Field />}
-
-			{/* {displayField && <Field />} */}
 		</>
 	);
 }
